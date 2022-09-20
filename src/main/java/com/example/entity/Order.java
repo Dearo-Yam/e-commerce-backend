@@ -3,7 +3,7 @@ package com.example.entity;
 import javax.persistence.Id;
 import java.sql.Date;
 
-public class Orders {
+public class Order {
 
     @Id
     int OrderId;
