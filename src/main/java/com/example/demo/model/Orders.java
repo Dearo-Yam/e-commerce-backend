@@ -40,10 +40,12 @@ public class Orders {
     String orderStatus;
 
     public Orders() {
+        super();
     }
 
     public Orders(int orderId, int userId, int addressId, double price, int creditCardId,
                   Date dateOrdered, Date dateShipped, Date dateDelivered, String orderStatus) {
+        super();
         this.orderId = orderId;
         this.userId = userId;
         this.addressId = addressId;
@@ -125,5 +127,20 @@ public class Orders {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "orderId=" + orderId +
+                ", userId=" + userId +
+                ", addressId=" + addressId +
+                ", price=" + price +
+                ", creditCardId=" + creditCardId +
+                ", dateOrdered=" + dateOrdered +
+                ", dateShipped=" + dateShipped +
+                ", dateDelivered=" + dateDelivered +
+                ", orderStatus='" + orderStatus + '\'' +
+                '}';
     }
 }
