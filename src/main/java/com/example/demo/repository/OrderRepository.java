@@ -1,6 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Order;
+import com.example.demo.model.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Orders, Integer> {
     // Updates Order row's Status to Shipped and DateShipped to the current Date/Time
     @Transactional
     @Modifying
@@ -30,4 +30,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "WHERE Orders.orderId = :orderId ;",
     nativeQuery = true)
     void updateStockById(@Param("orderId") int orderId);
+
+    // Getting count of all Orders with Status = "Shipped" - Edwin
+    @Query("select count(*) from Orders o where OrderStatus = 'Shipped'")
+    int getTotalOrdersShipped();
 }

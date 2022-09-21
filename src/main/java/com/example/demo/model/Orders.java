@@ -6,9 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-@Table(name = "wms_test_db.Orders")
+@Table
 @Entity
-public class Order {
+public class Orders {
 
     @Id
     @Column(name = "OrderID")
@@ -39,11 +39,11 @@ public class Order {
     @Column(name = "OrderStatus")
     String orderStatus;
 
-    public Order() {
+    public Orders() {
     }
 
-    public Order(int orderId, int userId, int addressId, double price, int creditCardId,
-                 Date dateOrdered, Date dateShipped, Date dateDelivered, String orderStatus) {
+    public Orders(int orderId, int userId, int addressId, double price, int creditCardId,
+                  Date dateOrdered, Date dateShipped, Date dateDelivered, String orderStatus) {
         this.orderId = orderId;
         this.userId = userId;
         this.addressId = addressId;
