@@ -41,6 +41,15 @@ public class OrdersController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
+    // Showing all Pending Orders - Chuang
+    // Renamed from "/show" to "/pending"
+    @GetMapping("/pending")
+    @ResponseBody
+    public List<Orders> getOrders() {
+        //Gather all the entries for department from the database and return as a list
+        return service.getPendingOrders();
+    }
+
     // Check for authentication?
     @PutMapping("/{id}/ship")
     public ResponseEntity<Boolean> shipOrderById(@PathVariable("id") int orderId) {
@@ -51,9 +60,9 @@ public class OrdersController {
     }
 
     // Viewing Total Orders Shipped - Edwin
-    // Renamed to "/shipped" -> /api/orders/shipped
+    // Renamed to "/shipped" -> /api/orders/shipped/count
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/shipped")
+    @GetMapping("/shipped/count")
     @ResponseBody
     public ResponseEntity<Integer> getOrdersShipped() {
         int numOfShipped = service.getTotalOrdersShipped();
@@ -62,5 +71,21 @@ public class OrdersController {
         }
         return new ResponseEntity<>(numOfShipped, HttpStatus.OK);
     }
+
+    // Pulled from Chuang
+//    @PutMapping("/update/{id}/{status}")
+//    @ResponseBody
+//    public ResponseEntity<String> update(@PathVariable int id, @PathVariable String status)
+//    {
+//        //Check if there is information pass in from the post request
+//        //if yes, call update service to update the information
+//        try{
+//            if(status != null)
+//                return service.update(id, status);
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 }

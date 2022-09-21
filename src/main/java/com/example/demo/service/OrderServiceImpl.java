@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.model.Orders;
 import com.example.demo.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,8 +48,47 @@ public class OrderServiceImpl implements OrderService {
         return repo.findById(orderId).get().getOrderStatus().equals("Delivered");
     }
 
+    // Pulled from Chuang's work
+    @Override
+    public List<Orders> getPendingOrders() {
+        //Gather all the entries for department from the database and return as a list
+        try{
+            List<Orders> oList = repo.findPendingOrder();
+            if(!oList.isEmpty())
+                return oList;
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 
 
+//    @Override
+//    public ResponseEntity<String> update(int id, String status) {
+//        try{
+//            repo.updateStatus(status, id);
+//            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
+//
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+
+
+//    @Override
+//    public List<Orders> getItems(int orderId) {
+//        try {
+//            List<Orders> iList = repo.findItems(orderId);
+//            if (!iList.isEmpty())
+//                return iList;
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
+
+    // Pulled from Edwin's work
     @Override
     public int getTotalOrdersShipped() {
         try {

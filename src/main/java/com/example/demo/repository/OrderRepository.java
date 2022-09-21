@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
     // Updates Order row's Status to Shipped and DateShipped to the current Date/Time
@@ -34,4 +36,22 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     // Getting count of all Orders with Status = "Shipped" - Edwin
     @Query("select count(*) from Orders o where OrderStatus = 'Shipped'")
     int getTotalOrdersShipped();
+
+    // Pulled from Chuang
+    @Query(value = "SELECT * FROM orders o WHERE o.orderstatus = 'Pending'", nativeQuery = true)
+    List<Orders> findPendingOrder();
+
+    @Transactional
+    @Modifying
+    @Query(value = "SELECT * " +
+            " FROM products p " +
+            " JOIN orderitems os ON p.upc = os.upc " +
+            " JOIN orders o ON os.orderid = o.orderid " +
+            " WHERE os.orderid = :orderId", nativeQuery = true)
+    List<Orders>findItems(@Param("orderId") Integer orderId);
+
+//    @Modifying
+//    @Transactional
+//    @Query(value = "UPDATE orders SET orderstatus = :status WHERE orderid = :orderId", nativeQuery = true)
+//    void updateStatus(@Param ("status") String status, @Param ("orderId") Integer id);
 }
