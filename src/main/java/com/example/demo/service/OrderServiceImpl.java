@@ -42,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean shipOrderById(int orderId) {
         repo.shipOrderById(orderId);
+        repo.updateStockById(orderId);
         return repo.findById(orderId).get().getOrderStatus().equals("Delivered");
     }
 }

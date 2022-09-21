@@ -10,9 +10,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+    // Updates Order row's Status to Shipped and DateShipped to the current Date/Time
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Orders SET DateShipped = NOW(), OrderStatus = \"Shipped\" WHERE OrderId = :orderId",
+    @Query(value = "UPDATE Orders SET Orders.DateShipped = NOW(), "+
+            "Orders.OrderStatus = \"Shipped\" WHERE Orders.OrderId = :orderId ;",
     nativeQuery = true)
     void shipOrderById(@Param("orderId") int orderId);
+
+    // Updates Product(s) in Order to have ShippedStock incremented by the quantity ordered
+    // and decrements the ReservedStock by the quantity ordered
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Products " +
+            "JOIN OrderItems ON OrderItems.UPC = Products.UPC " +
+            "JOIN Orders ON Orders.OrderId = OrderItems.OrderId " +
+            "SET Products.ShippedStock = Products.ShippedStock + OrderItems.Quantity, " +
+            "Products.ReservedStock = Products.ReservedStock - OrderItems.Quantity " +
+            "WHERE Orders.orderId = :orderId ;",
+    nativeQuery = true)
+    void updateStockById(@Param("orderId") int orderId);
 }

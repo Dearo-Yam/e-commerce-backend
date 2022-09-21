@@ -41,6 +41,7 @@ public class OrdersController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
+    // Check for authentication?
     @PutMapping("/{id}/ship")
     public ResponseEntity<Boolean> shipOrderById(@PathVariable("id") int orderId) {
         if(service.shipOrderById(orderId)) {
