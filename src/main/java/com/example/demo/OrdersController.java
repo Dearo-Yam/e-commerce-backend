@@ -3,6 +3,8 @@ package com.example.demo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,13 @@ public class OrdersController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/totalshipped")
 	@ResponseBody
-	public int getOrdersShipped() {
-		return service.getTotalOrdersShipped();
+	public ResponseEntity<Integer> getOrdersShipped() {
+		int numOfShipped = service.getTotalOrdersShipped();
+		if(numOfShipped == -1) {
+			return new ResponseEntity<>(numOfShipped, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		else {
+			return new ResponseEntity<>(numOfShipped, HttpStatus.OK);
+		}
 	}
 }

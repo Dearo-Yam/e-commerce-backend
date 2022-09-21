@@ -15,7 +15,13 @@ public class OrdersServiceImpl implements OrdersService {
 
 	@Override
 	public int getTotalOrdersShipped() {
-		return repo.getTotalOrdersShipped();
+		try {
+			return repo.getTotalOrdersShipped();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return -1;
 	}
 	
 }

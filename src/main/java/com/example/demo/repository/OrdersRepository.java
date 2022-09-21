@@ -11,6 +11,6 @@ import com.example.demo.model.Orders;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Integer> {
 	
-	@Query("select count(o) from Orders o where OrderStatus = 'Shipped'")
+	@Query("select count(*) from Orders o where OrderStatus = 'Shipped'")
 	int getTotalOrdersShipped();
 }
