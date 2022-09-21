@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.Orders;
+import com.example.entity.Order;
 import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,16 +17,22 @@ public class OrderController {
 
     @GetMapping("/show")
     @ResponseBody
-    public List<Orders> getAll() {
+    public List<Order> getOrders() {
         //Gather all the entries for department from the database and return as a list
         return service.getPendingOrders();
+    }
+
+    @GetMapping("/items/{id}")
+    @ResponseBody
+    public List<Order> getAllItems(@PathVariable Integer orderId){
+        return service.getItems(orderId);
     }
 
 
 
     @PutMapping("/update/{id}/{status}")
     @ResponseBody
-    public ResponseEntity<String> update(@RequestBody int id, @PathVariable String status)
+    public ResponseEntity<String> update(@PathVariable int id, @PathVariable String status)
     {
         //Check if there is information pass in from the post request
         //if yes, call update service to update the information
@@ -38,6 +44,8 @@ public class OrderController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
 
 }
