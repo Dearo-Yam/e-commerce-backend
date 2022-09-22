@@ -9,6 +9,7 @@ import com.example.repos.ProductRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,14 +43,15 @@ public class OrdersServiceImple implements OrderService {
 
 
     @Override
-    public ResponseEntity<String> update(int id,String status) {
+
+    public ResponseEntity<Order> update(int id,String status) {
         try{
             repo.updateStatus(status, id);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            Optional<Order> order = repo.findById(id);
+;            return new ResponseEntity<>(order.get(), HttpStatus.ACCEPTED);
         }catch(Exception exc){
             System.out.println(exc);
         }
-
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface OrderService {
     List<Order> getPendingOrders();
-    ResponseEntity<String>update(int id, String status);
+    ResponseEntity<Order>update(int id, String status);
     List<Product> getItems(int orderId);
 }
