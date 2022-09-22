@@ -14,14 +14,15 @@ public class OrderItems {
 
     int orderid;
     int quantity;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "upc", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Product upc;
+    //@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    //@JoinColumn(name = "upc", nullable = false)
+    //@OnDelete(action = OnDeleteAction.CASCADE)
+    //@JsonIgnore
+    //private Product upc;
+    String upc;
 
     public OrderItems(){};
-    public OrderItems(int orderitemid, int orderid, int quantity, Product upc) {
+    public OrderItems(int orderitemid, int orderid, int quantity, String upc) {
         this.orderitemid = orderitemid;
         this.orderid = orderid;
         this.quantity = quantity;
@@ -52,11 +53,11 @@ public class OrderItems {
         this.quantity = quantity;
     }
 
-    public Product getUpc() {
+    public String getUpc() {
         return upc;
     }
 
-    public void setUpc(Product upc) {
+    public void setUpc(String upc) {
         this.upc = upc;
     }
 
