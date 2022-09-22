@@ -9,7 +9,13 @@ import java.util.List;
 
 public interface ProductRepos extends JpaRepository<Product, Integer> {
 
-    @Query(value = "SELECT * FROM products p JOIN orderitems os ON" +
-            " p.upc = os.upc WHERE os.orderid = :orderId", nativeQuery = true)
-    List<Product> findItems(@Param("orderId") int id);
+    //@Query(value = "SELECT p FROM products p WHERE p.orderitems.orderid = :orderId")
+    //List<Product>findItems(@Param("orderId") Integer orderId);
+
+    @Query(value = "SELECT *" +
+            " FROM products p " +
+            " INNER JOIN orderitems os ON p.upc = os.upc " +
+            " WHERE os.orderid = :orderId", nativeQuery = true)
+    List<Product>findItems(@Param("orderId") Integer orderId);
+
 }

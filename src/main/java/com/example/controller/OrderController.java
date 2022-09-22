@@ -26,7 +26,7 @@ public class OrderController {
 
     @GetMapping("/items/{id}")
     @ResponseBody
-    public List<Product> getAllItems(@PathVariable Integer orderId){
+    public List<Product> getAllItems(@PathVariable("id") Integer orderId){
         return service.getItems(orderId);
     }
 

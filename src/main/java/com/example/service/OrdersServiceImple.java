@@ -23,6 +23,9 @@ public class OrdersServiceImple implements OrderService {
     @Autowired
     private OrderItemsRepo os;
 
+    @Autowired
+    private ProductRepos ps;
+
 
     @Override
     public List<Order> getPendingOrders() {
@@ -54,7 +57,7 @@ public class OrdersServiceImple implements OrderService {
     @Override
     public List<Product> getItems(int orderId) {
         try {
-            List<Product> iList = os.findItems(orderId);
+            List<Product> iList = ps.findItems(orderId);
             if (!iList.isEmpty())
                 return iList;
         } catch (Exception exc) {

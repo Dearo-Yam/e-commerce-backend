@@ -19,7 +19,7 @@ public interface OrdersRepos  extends JpaRepository<Order, Integer> {
 
 
 
-    @Query(value = "SELECT * " +
+    @Query(value = "SELECT *" +
             " FROM products p " +
             " INNER JOIN orderitems os ON p.upc = os.upc " +
             " WHERE os.orderid = :orderId", nativeQuery = true)
