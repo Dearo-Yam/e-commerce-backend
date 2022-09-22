@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.controller;
 
-import com.example.demo.model.Orders;
-import com.example.demo.service.OrderService;
+import com.example.model.Orders;
+import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,19 +73,20 @@ public class OrdersController {
     }
 
     // Pulled from Chuang
-//    @PutMapping("/update/{id}/{status}")
-//    @ResponseBody
-//    public ResponseEntity<String> update(@PathVariable int id, @PathVariable String status)
-//    {
-//        //Check if there is information pass in from the post request
-//        //if yes, call update service to update the information
-//        try{
-//            if(status != null)
-//                return service.update(id, status);
-//        }catch(Exception e){
-//            System.out.println(e);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    // Maybe check String status to be either Shipped, Pending, or Canceled?
+    @PutMapping("/update/{id}/{status}")
+    @ResponseBody
+    public ResponseEntity<Orders> update(@PathVariable("id") int id, @PathVariable("status") String status)
+    {
+        //Check if there is information pass in from the post request
+        //if yes, call update service to update the information
+        try{
+            if(status != null && id > 0)
+                return service.update(id, status);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
 }
