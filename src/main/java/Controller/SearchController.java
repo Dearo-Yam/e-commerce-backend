@@ -25,7 +25,7 @@ public class SearchController {
 	}
 	@PostMapping("/search")
 	public String doSearch(@ModelAttribute("productSearchFormData")mainSearch formData, Model model) {
-		mainSearch temp = service.findByID(formData.getProductID());
+		mainSearch temp = service.findByID(formData.getUserID());
 		if (temp == null) {
 			String oops = "no results were found";
 			model.addAttribute("order",service.getAll());

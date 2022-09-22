@@ -11,16 +11,16 @@
 <body>
 <div align="center">
  
-    <h1>Search Employee</h1>
+    <h1>Search Order</h1>
     <br />
      <div class="col-sm-4">
     
-<form action="#" th:action="@{/search}" th:object="${employee}" method="post">
+<form action="#" th:action="@{/search}" th:object="${userID}" method="post">
         <div alight="left">
             <tr>
-                <label class="form-label" >Employee ID</label>
+                <label class="form-label" >UserID</label>
                 <td>
-                    <input type="text" th:field="*{id}" class="form-control" placeholder="Employee ID" />
+                    <input type="text" th:field="*{id}" class="form-control" placeholder="User ID" />
                 </td>
             </tr>
         </div>  
@@ -33,9 +33,9 @@
             
             <div alight="left">
             <tr>
-                <label class="form-label" >Employee Name</label>
+                <label class="form-label" >User Name</label>
                 <td>  
-                    <input type="text" th:field="${employee.ename}" class="form-control" placeholder="Employee Name" />
+                    <input type="text" th:field="${mainSearch.userID}" class="form-control" placeholder="User ID" />
                 </td>
             </tr>
          </div>  
