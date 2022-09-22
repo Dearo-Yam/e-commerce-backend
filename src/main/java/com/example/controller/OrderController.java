@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.entity.Order;
+import com.example.entity.OrderItems;
+import com.example.entity.Product;
 import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +26,7 @@ public class OrderController {
 
     @GetMapping("/items/{id}")
     @ResponseBody
-    public List<Order> getAllItems(@PathVariable Integer orderId){
+    public List<Product> getAllItems(@PathVariable Integer orderId){
         return service.getItems(orderId);
     }
 

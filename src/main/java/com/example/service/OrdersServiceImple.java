@@ -1,7 +1,11 @@
 package com.example.service;
 
 import com.example.entity.Order;
+import com.example.entity.OrderItems;
+import com.example.entity.Product;
+import com.example.repos.OrderItemsRepo;
 import com.example.repos.OrdersRepos;
+import com.example.repos.ProductRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,10 @@ public class OrdersServiceImple implements OrderService {
 
     @Autowired
     private OrdersRepos repo;
+
+    @Autowired
+    private OrderItemsRepo os;
+
 
     @Override
     public List<Order> getPendingOrders() {
@@ -44,9 +52,9 @@ public class OrdersServiceImple implements OrderService {
 
 
     @Override
-    public List<Order> getItems(int orderId) {
+    public List<Product> getItems(int orderId) {
         try {
-            List<Order> iList = repo.findItems(orderId);
+            List<Product> iList = os.findItems(orderId);
             if (!iList.isEmpty())
                 return iList;
         } catch (Exception exc) {

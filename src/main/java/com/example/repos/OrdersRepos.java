@@ -1,6 +1,7 @@
 package com.example.repos;
 
 import com.example.entity.Order;
+import com.example.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,14 +17,15 @@ public interface OrdersRepos  extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT * FROM orders o WHERE o.orderstatus = 'Pending'", nativeQuery = true)
     List<Order> findPendingOrder();
 
-    @Transactional
-    @Modifying
+
+
     @Query(value = "SELECT * " +
             " FROM products p " +
-            " JOIN orderitems os ON p.upc = os.upc " +
-            " JOIN orders o ON os.orderid = o.orderid " +
+            " INNER JOIN orderitems os ON p.upc = os.upc " +
             " WHERE os.orderid = :orderId", nativeQuery = true)
-    List<Order>findItems(@Param("orderId") Integer orderId);
+    List<Product>findItems(@Param("orderId") Integer orderId);
+
+
 
     @Modifying
     @Transactional

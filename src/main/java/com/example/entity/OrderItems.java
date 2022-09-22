@@ -1,4 +1,8 @@
-/*package com.example.entity;
+package com.example.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -7,16 +11,17 @@ import javax.persistence.*;
 public class OrderItems {
     @Id
     int orderitemid;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderid", referencedColumnName = "orderid")
-    private Order orderid;
+
+    int orderid;
     int quantity;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "upc", referencedColumnName = "upc")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "upc", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Product upc;
 
     public OrderItems(){};
-    public OrderItems(int orderitemid, Order orderid, int quantity, Product upc) {
+    public OrderItems(int orderitemid, int orderid, int quantity, Product upc) {
         this.orderitemid = orderitemid;
         this.orderid = orderid;
         this.quantity = quantity;
@@ -31,11 +36,11 @@ public class OrderItems {
         this.orderitemid = orderitemid;
     }
 
-    public Order getOrderid() {
+    public int getOrderid() {
         return orderid;
     }
 
-    public void setOrderid(Order orderid) {
+    public void setOrderid(int orderid) {
         this.orderid = orderid;
     }
 
@@ -65,4 +70,3 @@ public class OrderItems {
                 '}';
     }
 }
-*/

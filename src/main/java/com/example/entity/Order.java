@@ -17,12 +17,7 @@ public class Order {
     Date datedelivered;
     String orderstatus;
 
-    /*@OneToOne(cascade = CascadeType.ALL)
-    @JoinTable(name = "orderitmes",
-    joinColumns =
-            {@JoinColumn(name = "orderid", referencedColumnName = "id")},
-    inverseJoinColumns = {@JoinColumn(name = "orderid", referencedColumnName = "id")})
-    private OrderItems os;*/
+
 
 
     public Order(){}
