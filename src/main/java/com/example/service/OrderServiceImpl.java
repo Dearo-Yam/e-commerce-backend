@@ -103,4 +103,17 @@ public class OrderServiceImpl implements OrderService {
 
         return -1;
     }
+
+	@Override
+	public double getAvgTimeToShip() {
+		try {
+			double avgTime = Double.parseDouble(String.format("%.2f", repo.getAvgTimeToShip()));
+			return avgTime;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return -1;
+	}
+    
 }

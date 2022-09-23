@@ -1,15 +1,14 @@
 package com.example.model;
 
-import javax.persistence.Column;
+import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.Column;
 
 @Table
 @Entity
 public class Orders {
-
     @Id
     @Column(name = "OrderID")
     int orderId;

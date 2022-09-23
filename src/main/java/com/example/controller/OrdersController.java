@@ -71,6 +71,17 @@ public class OrdersController {
         }
         return new ResponseEntity<>(numOfShipped, HttpStatus.OK);
     }
+    
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/shipped/avg")
+    @ResponseBody
+    public ResponseEntity<Double> getAvgTimeToShip() {
+    	double avgTime = service.getAvgTimeToShip();
+        if(avgTime == -1) {
+            return new ResponseEntity<>(avgTime, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(avgTime, HttpStatus.OK);
+    }
 
     // Pulled from Chuang
     // Maybe check String status to be either Shipped, Pending, or Canceled?

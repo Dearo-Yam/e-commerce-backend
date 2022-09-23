@@ -47,6 +47,9 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
             " INNER JOIN orderitems os ON p.upc = os.upc " +
             " WHERE os.orderid = :orderId", nativeQuery = true)
     List<Products>findItems(@Param("orderId") Integer orderId);
+    
+    @Query("select AVG(DATEDIFF(DateShipped, DateOrdered)) from Orders where OrderStatus = 'Shipped' or OrderStatus = 'Delivered'")
+    double getAvgTimeToShip();
 
     @Modifying
     @Transactional
