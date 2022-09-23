@@ -40,8 +40,38 @@ public class OrdersServiceImple implements OrderService {
         }
         return null;
     }
+    @Override
+    public List<Order> getAllOrders() {
+        //Gather all the entries for department from the database and return as a list
+        try {
+            List<Order> orderList = repo.findAll();
+            if(!orderList.isEmpty())
+                return orderList;
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean shipOrderById(int orderId) {
+        repo.shipOrderById(orderId);
+        repo.updateStockById(orderId);
+        return repo.findById(orderId).get().getOrderstatus().equals("Delivered");
+    }
 
 
+    @Override
+    public Optional<Order> getOrderById(int orderId) {
+        try {
+            Optional<Order> order = repo.findById(orderId);
+            if(order.isPresent())
+                return order;
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        return Optional.empty();
+    }
     @Override
 
     public ResponseEntity<Order> update(int id,String status) {
