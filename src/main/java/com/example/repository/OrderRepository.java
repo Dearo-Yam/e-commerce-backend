@@ -1,6 +1,7 @@
-package com.example.demo.repository;
+package com.example.repository;
 
-import com.example.demo.model.Orders;
+import com.example.model.Orders;
+import com.example.model.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -41,17 +42,14 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "SELECT * FROM orders o WHERE o.orderstatus = 'Pending'", nativeQuery = true)
     List<Orders> findPendingOrder();
 
-    @Transactional
-    @Modifying
-    @Query(value = "SELECT * " +
+    @Query(value = "SELECT *" +
             " FROM products p " +
-            " JOIN orderitems os ON p.upc = os.upc " +
-            " JOIN orders o ON os.orderid = o.orderid " +
+            " INNER JOIN orderitems os ON p.upc = os.upc " +
             " WHERE os.orderid = :orderId", nativeQuery = true)
-    List<Orders>findItems(@Param("orderId") Integer orderId);
+    List<Products>findItems(@Param("orderId") Integer orderId);
 
-//    @Modifying
-//    @Transactional
-//    @Query(value = "UPDATE orders SET orderstatus = :status WHERE orderid = :orderId", nativeQuery = true)
-//    void updateStatus(@Param ("status") String status, @Param ("orderId") Integer id);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE orders SET orderstatus = :status WHERE orderid = :orderId", nativeQuery = true)
+    void updateStatus(@Param ("status") String status, @Param ("orderId") Integer id);
 }

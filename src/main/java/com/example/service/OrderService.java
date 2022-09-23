@@ -1,6 +1,7 @@
-package com.example.demo.service;
+package com.example.service;
 
-import com.example.demo.model.Orders;
+import com.example.model.Orders;
+import com.example.model.Products;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,6 @@ public interface OrderService {
     int getTotalOrdersShipped();
 
     List<Orders> getPendingOrders();
-//    ResponseEntity<String> update(int id, String status);
-
-//    List<Orders> getItems(int orderId);
+    ResponseEntity<Orders>update(int id, String status);
+    List<Products> getItems(int orderId);
 }
