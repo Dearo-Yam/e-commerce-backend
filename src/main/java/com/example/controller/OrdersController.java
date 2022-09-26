@@ -23,7 +23,7 @@ public class OrdersController {
         return "Hello from Order controller";
     }
 
-    // Getting all Orders:
+    // Getting all Orders (orders marked as "Shipped" or "Pending", not "Canceled"):
     @GetMapping("/all")
     @ResponseBody
     public List<Orders> getAllOrders() {
@@ -45,9 +45,15 @@ public class OrdersController {
     // Renamed from "/show" to "/pending"
     @GetMapping("/pending")
     @ResponseBody
-    public List<Orders> getOrders() {
+    public List<Orders> getPendingOrders() {
         //Gather all the entries for department from the database and return as a list
         return service.getPendingOrders();
+    }
+
+    @GetMapping("/shipped")
+    @ResponseBody
+    public List<Orders> getShippedOrders() {
+        return service.getShippedOrders();
     }
 
     // Check for authentication?
