@@ -91,8 +91,8 @@ public class OrdersController {
     
     @GetMapping("/top-selling")
     @ResponseBody
-    public ResponseEntity<List<Orders>> getTopSellingOrders() {
-    	List<Orders> topSelling = service.getTopSellingItems();
+    public ResponseEntity<List<Object>> getTopSellingOrders() {
+    	List<Object> topSelling = service.getTopSellingItems();
     	if(!topSelling.isEmpty()) {
     		return new ResponseEntity<>(topSelling, HttpStatus.OK);
     	}

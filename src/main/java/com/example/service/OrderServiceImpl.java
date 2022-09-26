@@ -130,9 +130,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Orders> getTopSellingItems() {
+	public List<Object> getTopSellingItems() {
 		try {
-			List<Orders> topSelling = repo.getTopSellingItems();
+			List<Object> topSelling = productRepo.getTopSellingItems();
 			if(!topSelling.isEmpty()) {
 				return topSelling;
 			}
