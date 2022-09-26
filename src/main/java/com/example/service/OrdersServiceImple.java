@@ -1,15 +1,12 @@
 package com.example.service;
 
 import com.example.entity.Order;
-import com.example.entity.OrderItems;
 import com.example.entity.Product;
-import com.example.repos.OrderItemsRepo;
 import com.example.repos.OrdersRepos;
 import com.example.repos.ProductRepos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +18,6 @@ public class OrdersServiceImple implements OrderService {
     @Autowired
     private OrdersRepos repo;
 
-    @Autowired
-    private OrderItemsRepo os;
 
     @Autowired
     private ProductRepos ps;
