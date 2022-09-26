@@ -23,9 +23,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Orders> getAllOrders() {
-        //Gather all the entries for department from the database and return as a list
+        // Gather all Orders in a list with OrderStatus marked as "Shipped" or "Pending" (NOT "Canceled")
         try {
-            List<Orders> orderList = orderRepo.findAll();
+            List<Orders> orderList = orderRepo.findAllOrders();
             if(!orderList.isEmpty())
                 return orderList;
         } catch(Exception e){
@@ -58,7 +58,20 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> getPendingOrders() {
         //Gather all the entries for department from the database and return as a list
         try{
-            List<Orders> oList = orderRepo.findPendingOrder();
+            List<Orders> oList = orderRepo.findPendingOrders();
+            if(!oList.isEmpty())
+                return oList;
+        }catch(Exception exc){
+            System.out.println(exc);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Orders> getShippedOrders() {
+        // Retrieves all Orders with status marked as "Shipped" and returns a list.
+        try{
+            List<Orders> oList = orderRepo.findShippedOrders();
             if(!oList.isEmpty())
                 return oList;
         }catch(Exception exc){
