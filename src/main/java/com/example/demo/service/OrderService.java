@@ -19,6 +19,8 @@ public interface OrderService {
     List<Orders> getPendingOrders();
     
     double getAvgTimeToShip();
+    
+    List<Orders> getTopSellingItems();
 //    ResponseEntity<String> update(int id, String status);
 
 //    List<Orders> getItems(int orderId);

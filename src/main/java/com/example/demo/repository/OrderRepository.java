@@ -52,7 +52,10 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     
     @Query("select AVG(DATEDIFF(DateShipped, DateOrdered)) from Orders where OrderStatus = 'Shipped' or OrderStatus = 'Delivered'")
     double getAvgTimeToShip();
-
+    
+    @Query("SELECT DISTINCT Products.prod_name AS Item, Products.shipped_stock AS Sold FROM order_items JOIN Products ON Products.UPC = order_items.UPC JOIN Orders ON Orders.order_id = order_items.order_id ORDER BY Products.shipped_stock DESC")
+    List<Orders> getTopSellingItems();
+    
 //    @Modifying
 //    @Transactional
 //    @Query(value = "UPDATE orders SET orderstatus = :status WHERE orderid = :orderId", nativeQuery = true)

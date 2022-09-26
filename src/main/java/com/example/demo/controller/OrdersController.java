@@ -82,6 +82,17 @@ public class OrdersController {
         }
         return new ResponseEntity<>(avgTime, HttpStatus.OK);
     }
+    
+    @GetMapping("/top-selling")
+    @ResponseBody
+    public ResponseEntity<List<Orders>> getTopSellingOrders() {
+    	List<Orders> topSelling = service.getTopSellingItems();
+    	if(!topSelling.isEmpty()) {
+    		return new ResponseEntity<>(topSelling, HttpStatus.OK);
+    	}
+    	
+    	return new ResponseEntity<>(topSelling, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     // Pulled from Chuang
 //    @PutMapping("/update/{id}/{status}")

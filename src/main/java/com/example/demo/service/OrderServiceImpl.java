@@ -111,5 +111,19 @@ public class OrderServiceImpl implements OrderService {
 		
 		return -1;
 	}
+
+	@Override
+	public List<Orders> getTopSellingItems() {
+		try {
+			List<Orders> topSelling = repo.getTopSellingItems();
+			if(!topSelling.isEmpty()) {
+				return topSelling;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return null;
+	}
     
 }
