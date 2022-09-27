@@ -18,6 +18,6 @@ public interface ProductRepository extends JpaRepository<Products, Integer> {
             " WHERE os.orderid = :orderId", nativeQuery = true)
     List<Products>findItems(@Param("orderId") Integer orderId);
     
-    @Query(value = "select distinct p.ProdName, p.ShippedStock from orderitems oi join products p on p.UPC = oi.UPC join orders o on o. = oi.OrderId order by p.ShippedStock desc limit 3", nativeQuery = true)
+    @Query(value = "select distinct p.prod_name, p.shipped_stock from order_items oi join products p on p.upc = oi.upc join orders o on o.order_id = oi.order_id order by p.shipped_stock desc limit 3", nativeQuery = true)
     List<Object> getTopSellingItems();
 }
