@@ -45,7 +45,7 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     void updateStockById(@Param("orderId") int orderId);
 
     // Getting count of all Orders with Status = "Shipped" - Edwin
-    @Query(value = "select count(*) from Orders o where order_status = 'Shipped'", nativeQuery = true)
+    @Query(value = "select count(*) from Orders o where OrderStatus = 'Shipped'", nativeQuery = true)
     int getTotalOrdersShipped();
 
     @Query(value = "SELECT *" +
@@ -54,7 +54,7 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
             " WHERE os.orderid = :orderId", nativeQuery = true)
     List<Products>findItems(@Param("orderId") Integer orderId);
     
-    @Query(value = "select AVG(DATEDIFF(date_shipped, date_ordered)) from Orders where order_status = 'Shipped' or order_status = 'Delivered'", nativeQuery = true)
+    @Query(value = "select AVG(DATEDIFF(DateShipped, DateOrdered)) from Orders where OrderStatus = 'Shipped' or OrderStatus = 'Delivered'", nativeQuery = true)
     double getAvgTimeToShip();
 
     @Modifying
