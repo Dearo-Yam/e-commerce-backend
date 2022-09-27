@@ -18,6 +18,7 @@ public interface OrderService {
     int getTotalOrdersShipped();
 
     List<Orders> getPendingOrders();
+    List<Orders> getShippedOrders();
     ResponseEntity<Orders>update(int id, String status);
     List<Products> getItems(int orderId);
     
