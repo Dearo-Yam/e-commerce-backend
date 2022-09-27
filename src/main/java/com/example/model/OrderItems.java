@@ -3,42 +3,45 @@ package com.example.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orderitems")
+@Table(name = "order_items")
 public class OrderItems {
     @Id
-    int orderitemid;
+    @Column(name = "order_item_id")
+    int order_item_id;
 
-    int orderid;
+    @Column(name = "order_id")
+    int order_id;
+
+    @Column(name = "quantity")
     int quantity;
-    //@ManyToOne(fetch = FetchType.LAZY, optional = false)
-    //@JoinColumn(name = "upc", nullable = false)
-    //@OnDelete(action = OnDeleteAction.CASCADE)
-    //@JsonIgnore
-    //private Product upc;
+
+    @Column(name = "upc")
     String upc;
 
-    public OrderItems(){};
-    public OrderItems(int orderitemid, int orderid, int quantity, String upc) {
-        this.orderitemid = orderitemid;
-        this.orderid = orderid;
+    public OrderItems(){
+        super();
+    };
+    public OrderItems(int order_item_id, int order_id, int quantity, String upc) {
+        this.order_item_id = order_item_id;
+        this.order_id = order_id;
         this.quantity = quantity;
         this.upc = upc;
     }
 
     public int getOrderitemid() {
-        return orderitemid;
+        return order_item_id;
     }
 
-    public void setOrderitemid(int orderitemid) {
-        this.orderitemid = orderitemid;
+    public void setOrderitemid(int order_item_id) {
+        this.order_item_id = order_item_id;
     }
 
     public int getOrderid() {
-        return orderid;
+        return order_id;
     }
 
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
+    public void setOrderid(int order_id) {
+        this.order_id = order_id;
     }
 
     public int getQuantity() {
@@ -60,8 +63,8 @@ public class OrderItems {
     @Override
     public String toString() {
         return "OrerItems{" +
-                "orderitemid=" + orderitemid +
-                ", orderid=" + orderid +
+                "order_item_id=" + order_item_id +
+                ", order_id=" + order_id +
                 ", quantity=" + quantity +
                 ", upc='" + upc + '\'' +
                 '}';

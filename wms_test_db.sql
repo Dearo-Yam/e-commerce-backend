@@ -75,7 +75,7 @@ CREATE TABLE products
 );
 
 -- -----------------------------------------------------
--- Table `wms_test_db`.`CartItems`
+-- Table `wms_test_db`.`Cart_Items`
 -- -----------------------------------------------------
 CREATE TABLE cart_items
 (
@@ -89,7 +89,7 @@ CREATE TABLE cart_items
 );
 
 -- -----------------------------------------------------
--- Table `wms_test_db`.`CreditCards`
+-- Table `wms_test_db`.`Credit_Cards`
 -- -----------------------------------------------------
 CREATE TABLE credit_cards
 (
@@ -123,7 +123,7 @@ CREATE TABLE orders
 );
 
 -- -----------------------------------------------------
--- Table `wms_test_db`.`Users`
+-- Table `wms_test_db`.`Order_Items`
 -- -----------------------------------------------------
 CREATE TABLE order_items
 (
