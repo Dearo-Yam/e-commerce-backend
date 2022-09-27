@@ -17,5 +17,7 @@ public interface ProductRepository extends JpaRepository<Products, Integer> {
             " INNER JOIN orderitems os ON p.upc = os.upc " +
             " WHERE os.orderid = :orderId", nativeQuery = true)
     List<Products>findItems(@Param("orderId") Integer orderId);
-
+    
+    @Query(value = "select distinct p.ProdName, p.ShippedStock from orderitems oi join products p on p.UPC = oi.UPC join orders o on o. = oi.OrderId order by p.ShippedStock desc limit 3", nativeQuery = true)
+    List<Object> getTopSellingItems();
 }

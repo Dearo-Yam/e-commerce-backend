@@ -88,6 +88,17 @@ public class OrdersController {
         }
         return new ResponseEntity<>(avgTime, HttpStatus.OK);
     }
+    
+    @GetMapping("/top-selling")
+    @ResponseBody
+    public ResponseEntity<List<Object>> getTopSellingOrders() {
+    	List<Object> topSelling = service.getTopSellingItems();
+    	if(!topSelling.isEmpty()) {
+    		return new ResponseEntity<>(topSelling, HttpStatus.OK);
+    	}
+    	
+    	return new ResponseEntity<>(topSelling, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     // Pulled from Chuang
     // Maybe check String status to be either Shipped, Pending, or Canceled?
