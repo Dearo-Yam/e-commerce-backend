@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,9 @@ public interface OrderService {
     List<Orders> getShippedOrders();
     ResponseEntity<Orders>update(int id, String status);
     List<Products> getItems(int orderId);
+
+    Map<String, Object> getOrderDetails(int orderId);
+    List<Map<String, Object>> getProductsByOrderId(int orderId);
     
     double getAvgTimeToShip();
     

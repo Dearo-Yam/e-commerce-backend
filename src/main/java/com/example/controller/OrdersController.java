@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -117,4 +118,16 @@ public class OrdersController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/{id}/details")
+    @ResponseBody
+    public Map<String, Object> getOrderDetails(@PathVariable("id") int id) {
+        System.out.println("Getting details of Order #" + id);
+        return service.getOrderDetails(id);
+    }
+
+    @GetMapping("/{id}/products")
+    @ResponseBody
+    public List<Map<String, Object>> getProductsByOrderId(@PathVariable("id") int id) {
+        return service.getProductsByOrderId(id);
+    }
 }

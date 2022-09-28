@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
@@ -61,4 +62,14 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Transactional
     @Query(value = "UPDATE orders SET order_status = :status WHERE order_id = :orderId", nativeQuery = true)
     void updateStatus(@Param ("status") String status, @Param ("orderId") Integer id);
+
+    @Query(value = "SELECT Orders.Order_ID AS 'order_id', Orders.order_status AS 'status', " +
+            "Orders.date_ordered, Orders.date_shipped, " +
+            "Addresses.recipient_name AS 'name', " +
+            "CONCAT(Addresses.street, ' ', coalesce(Addresses.street2, '')) AS 'address1', " +
+            "CONCAT(Addresses.city, ', ', Addresses.state, ' ', Addresses.zip) AS 'address2' " +
+            "FROM Orders " +
+            "JOIN Addresses ON Addresses.address_id = Orders.address_id " +
+            "WHERE Orders.Order_Id = :orderId", nativeQuery = true)
+    Map<String, Object> getOrderDetailsByOrderId(@Param("orderId") Integer orderId);
 }
