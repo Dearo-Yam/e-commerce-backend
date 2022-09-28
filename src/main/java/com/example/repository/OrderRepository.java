@@ -13,6 +13,16 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
+    @Query(value = "SELECT * FROM Orders o WHERE o.OrderStatus = 'Shipped' OR o.OrderStatus = 'Pending'",
+    nativeQuery = true)
+    List<Orders> findAllOrders();
+
+    @Query(value = "SELECT * FROM orders o WHERE o.orderstatus = 'Pending'", nativeQuery = true)
+    List<Orders> findPendingOrders();
+
+    @Query(value = "SELECT * FROM orders o WHERE o.orderstatus = 'Shipped'", nativeQuery = true)
+    List<Orders> findShippedOrders();
+
     // Updates Order row's Status to Shipped and DateShipped to the current Date/Time
     @Transactional
     @Modifying
@@ -37,10 +47,6 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     // Getting count of all Orders with Status = "Shipped" - Edwin
     @Query("select count(*) from Orders o where OrderStatus = 'Shipped'")
     int getTotalOrdersShipped();
-
-    // Pulled from Chuang
-    @Query(value = "SELECT * FROM orders o WHERE o.orderstatus = 'Pending'", nativeQuery = true)
-    List<Orders> findPendingOrder();
 
     @Query(value = "SELECT *" +
             " FROM products p " +
