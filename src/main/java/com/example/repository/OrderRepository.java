@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
@@ -38,8 +39,8 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "UPDATE Products " +
             "JOIN Order_Items ON Order_Items.UPC = Products.UPC " +
             "JOIN Orders ON Orders.Order_Id = Order_Items.Order_Id " +
-            "SET Products.Shipped_Stock = Products.Shipped_Stock + OrderItems.Quantity, " +
-            "Products.Reserved_Stock = Products.Reserved_Stock - OrderItems.Quantity " +
+            "SET Products.Shipped_Stock = Products.Shipped_Stock + Order_Items.Quantity, " +
+            "Products.Reserved_Stock = Products.Reserved_Stock - Order_Items.Quantity " +
             "WHERE Orders.order_Id = :orderId ;",
     nativeQuery = true)
     void updateStockById(@Param("orderId") int orderId);
@@ -74,4 +75,14 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     		+ "       and orders.date_shipped < ((now() - interval dayofweek(now()) DAY) + interval 1 DAY) - interval :week - 1 WEEK"
     		+ "       order by DayOfWeek(orders.date_shipped) asc", nativeQuery = true)
     List<Object> getWeeklyShipping(@Param("week") int week);
+
+    @Query(value = "SELECT Orders.Order_ID AS 'order_id', Orders.order_status AS 'status', " +
+            "Orders.date_ordered, Orders.date_shipped, " +
+            "Addresses.recipient_name AS 'name', " +
+            "CONCAT(Addresses.street, ' ', coalesce(Addresses.street2, '')) AS 'address1', " +
+            "CONCAT(Addresses.city, ', ', Addresses.state, ' ', Addresses.zip) AS 'address2' " +
+            "FROM Orders " +
+            "JOIN Addresses ON Addresses.address_id = Orders.address_id " +
+            "WHERE Orders.Order_Id = :orderId", nativeQuery = true)
+    Map<String, Object> getOrderDetailsByOrderId(@Param("orderId") Integer orderId);
 }

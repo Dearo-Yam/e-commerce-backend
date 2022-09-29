@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -60,9 +61,9 @@ public class OrdersController {
     @PutMapping("/{id}/ship")
     public ResponseEntity<Boolean> shipOrderById(@PathVariable("id") int orderId) {
         if(service.shipOrderById(orderId)) {
-            return ResponseEntity.status(HttpStatus.OK).body(true);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(true);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
     }
 
     // Viewing Total Orders Shipped - Edwin
@@ -102,19 +103,28 @@ public class OrdersController {
 
     // Pulled from Chuang
     // Maybe check String status to be either Shipped, Pending, or Canceled?
-    @PutMapping("/update/{id}/{status}")
+//    @PutMapping("/update/{id}/{status}")
+//    @ResponseBody
+//    public ResponseEntity<Orders> update(@PathVariable("id") int id, @PathVariable("status") String status)
+//    {
+//        //Check if there is information pass in from the post request
+//        //if yes, call update service to update the information
+//        try{
+//            if(status != null && id > 0)
+//                return service.update(id, status);
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
+
+    // Returns the details of both the Order selected by ID,
+    // and the Customer that made the purchase order.
+    @GetMapping("/{id}/details")
     @ResponseBody
-    public ResponseEntity<Orders> update(@PathVariable("id") int id, @PathVariable("status") String status)
-    {
-        //Check if there is information pass in from the post request
-        //if yes, call update service to update the information
-        try{
-            if(status != null && id > 0)
-                return service.update(id, status);
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public Map<String, Object> getOrderDetails(@PathVariable("id") int id) {
+        System.out.println("Getting details of Order #" + id);
+        return service.getOrderDetails(id);
     }
     
     @GetMapping("/weekly/{week}")
@@ -128,4 +138,9 @@ public class OrdersController {
     	return new ResponseEntity<>(weeklyShipping, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @GetMapping("/{id}/products")
+    @ResponseBody
+    public List<Map<String, Object>> getProductsByOrderId(@PathVariable("id") int id) {
+        return service.getProductsByOrderId(id);
+    }
 }
