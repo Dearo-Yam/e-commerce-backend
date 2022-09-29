@@ -54,11 +54,24 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
             " WHERE os.order_Id = :orderId", nativeQuery = true)
     List<Products>findItems(@Param("orderId") Integer orderId);
     
-    @Query("select AVG(DATEDIFF(Date_Shipped, Date_Ordered)) from Orders where order_status = 'Shipped' OR order_status = 'Delivered'")
+    @Query("select AVG(DATEDIFF(Date_Shipped, Date_Ordered)) from Orders where order_status = 'Shipped'")
     double getAvgTimeToShip();
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE orders SET order_status = :status WHERE order_id = :orderId", nativeQuery = true)
     void updateStatus(@Param ("status") String status, @Param ("orderId") Integer id);
+    
+    @Query(value = "select SUM(DAYOFWEEK(orders.date_shipped)=1),"
+    		+ "	   SUM(DAYOFWEEK(orders.date_shipped)=2),"
+    		+ "	   SUM(DAYOFWEEK(orders.date_shipped)=3),"
+    		+ "	   SUM(DAYOFWEEK(orders.date_shipped)=4),"
+    		+ "       SUM(DAYOFWEEK(orders.date_shipped)=5),"
+    		+ "       SUM(DAYOFWEEK(orders.date_shipped)=6),"
+    		+ "       SUM(DAYOFWEEK(orders.date_shipped)=7)"
+    		+ "       from orders"
+    		+ "       where order_status = 'Shipped' and orders.date_shipped >= ((now() - interval dayofweek(now()) DAY) + interval 1 DAY) - interval :week WEEK"
+    		+ "       and orders.date_shipped < ((now() - interval dayofweek(now()) DAY) + interval 1 DAY) - interval :week - 1 WEEK"
+    		+ "       order by DayOfWeek(orders.date_shipped) asc", nativeQuery = true)
+    List<Object> getWeeklyShipping(@Param("week") int week);
 }

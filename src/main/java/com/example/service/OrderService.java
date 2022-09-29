@@ -25,7 +25,6 @@ public interface OrderService {
     double getAvgTimeToShip();
     
     List<Object> getTopSellingItems();
-//    ResponseEntity<String> update(int id, String status);
-
-//    List<Orders> getItems(int orderId);
+    
+    List<Object> getWeeklyShipping(int week);
 }

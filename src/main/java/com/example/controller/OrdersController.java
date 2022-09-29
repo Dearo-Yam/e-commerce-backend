@@ -116,5 +116,16 @@ public class OrdersController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+    
+    @GetMapping("/weekly/{week}")
+    @ResponseBody
+    public ResponseEntity<List<Object>> getWeeklyShipping(@PathVariable("week") int week) {
+    	List<Object> weeklyShipping = service.getWeeklyShipping(week);
+    	if(!weeklyShipping.isEmpty()) {
+    		return new ResponseEntity<>(weeklyShipping, HttpStatus.OK);
+    	}
+    	
+    	return new ResponseEntity<>(weeklyShipping, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 }

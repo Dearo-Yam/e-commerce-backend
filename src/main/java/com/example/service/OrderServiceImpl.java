@@ -142,5 +142,19 @@ public class OrderServiceImpl implements OrderService {
 		
 		return null;
 	}
+
+	@Override
+	public List<Object> getWeeklyShipping(int week) {
+		try {
+			List<Object> weeklyShipping = orderRepo.getWeeklyShipping(week);
+			if(!weeklyShipping.isEmpty()) {
+				return weeklyShipping;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return null;
+	}
     
 }
