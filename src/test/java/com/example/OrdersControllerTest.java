@@ -70,7 +70,7 @@ public class OrdersControllerTest {
 
     @Test
     public void getOrderByIDTest() throws Exception{
-        Orders orders = new Orders(1,1,1,33.3,23,null,null,null, "shipped");
+        Orders orders = new Orders(1, 1, 1, 33.3, 23, null, null, "shipped");
         Mockito.when(orderService.getOrderById(1)).thenReturn(Optional.of(orders));
 
         mockMvc.perform(get(baseURI + "/1").contentType(MediaType.APPLICATION_JSON))
@@ -81,7 +81,7 @@ public class OrdersControllerTest {
 
     @Test
     public void getOrderByInvalidIDTest() throws Exception{
-        Orders orders = new Orders(1,1,1,33.3,23,null,null,null, "shipped");
+        Orders orders = new Orders(1,1,1,33.3,23,null,null, "shipped");
         Mockito.when(orderService.getOrderById(1)).thenReturn(Optional.of(orders));
 
         mockMvc.perform(get(baseURI + "/3").contentType(MediaType.APPLICATION_JSON))
@@ -92,8 +92,8 @@ public class OrdersControllerTest {
     public void getPendingOrdersTest() {
         try {
             List<Orders> ordersList = new ArrayList<>();
-            Orders order1 = new Orders(1,1,1,33.3,23,null,null,null, "shipped");
-            Orders order2 = new Orders(1,1,1,33.3,23,null,null,null, "pending");
+            Orders order1 = new Orders(1,1,1,33.3,23,null,null, "shipped");
+            Orders order2 = new Orders(1,1,1,33.3,23,null,null, "pending");
             ordersList.add(order1);
             ordersList.add(order2);
             when(orderService.getPendingOrders()).thenReturn(ordersList);
@@ -108,7 +108,7 @@ public class OrdersControllerTest {
 
     @Test
     public void updateTest() throws Exception{
-        Orders order1 = new Orders(1,1,1,33.3,23,null,null,null, "pending");
+        Orders order1 = new Orders(1,1,1,33.3,23,null,null, "pending");
         ResponseEntity<Orders> responseEntity = new ResponseEntity<>(order1, HttpStatus.ACCEPTED);
         System.out.println(responseEntity);
         System.out.println(responseEntity.getBody().getOrderStatus());
@@ -124,8 +124,8 @@ public class OrdersControllerTest {
     public void getOrdersShippedTest() {
         try {
             List<Orders> ordersList = new ArrayList<>();
-            Orders order1 = new Orders(1,1,1,33.3,23,null,null,null, "shipped");
-            Orders order2 = new Orders(1,1,1,33.3,23,null,null,null, "pending");
+            Orders order1 = new Orders(1,1,1,33.3,23,null,null, "shipped");
+            Orders order2 = new Orders(1,1,1,33.3,23,null,null, "pending");
             ordersList.add(order1);
             ordersList.add(order2);
             int num = 0;
