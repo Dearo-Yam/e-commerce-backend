@@ -39,8 +39,8 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "UPDATE Products " +
             "JOIN Order_Items ON Order_Items.UPC = Products.UPC " +
             "JOIN Orders ON Orders.Order_Id = Order_Items.Order_Id " +
-            "SET Products.Shipped_Stock = Products.Shipped_Stock + OrderItems.Quantity, " +
-            "Products.Reserved_Stock = Products.Reserved_Stock - OrderItems.Quantity " +
+            "SET Products.Shipped_Stock = Products.Shipped_Stock + Order_Items.Quantity, " +
+            "Products.Reserved_Stock = Products.Reserved_Stock - Order_Items.Quantity " +
             "WHERE Orders.order_Id = :orderId ;",
     nativeQuery = true)
     void updateStockById(@Param("orderId") int orderId);

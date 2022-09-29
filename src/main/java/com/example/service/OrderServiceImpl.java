@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean shipOrderById(int orderId) {
         orderRepo.shipOrderById(orderId);
         orderRepo.updateStockById(orderId);
-        return orderRepo.findById(orderId).get().getOrderStatus().equals("Delivered");
+        return orderRepo.findById(orderId).get().getOrderStatus().equals("Shipped");
     }
 
     // Pulled from Chuang's work

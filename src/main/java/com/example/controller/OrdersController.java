@@ -61,9 +61,9 @@ public class OrdersController {
     @PutMapping("/{id}/ship")
     public ResponseEntity<Boolean> shipOrderById(@PathVariable("id") int orderId) {
         if(service.shipOrderById(orderId)) {
-            return ResponseEntity.status(HttpStatus.OK).body(true);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(true);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
     }
 
     // Viewing Total Orders Shipped - Edwin
