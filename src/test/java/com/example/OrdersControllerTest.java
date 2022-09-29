@@ -17,14 +17,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-<<<<<<< HEAD
-=======
+
 import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
->>>>>>> Mingqing
 
 import java.util.List;
 import java.util.Optional;
@@ -82,31 +80,6 @@ public class OrdersControllerTest {
                 .andExpect(jsonPath("orderStatus", is("shipped")));
     }
 
-<<<<<<< HEAD
-//    @Test
-//    public void getOrdersTest() {
-//        try {
-//            List<Orders> ordersList = new ArrayList<>();
-//            Orders order1 = new Orders(1,1,1,33.3,23,null,null,null, "shipped");
-//            Orders order2 = new Orders(1,1,1,33.3,23,null,null,null, "pending");
-//            ordersList.add(order1);
-//            ordersList.add(order2);
-//            when(ordersList = orderService.getPendingOrders()).thenReturn(ordersList);
-//            this.mockMvc.perform(get(baseURI + "/pending").contentType(MediaType.APPLICATION_JSON))
-//                    .andExpect(status().isOk())
-//                    .andExpect(jsonPath("$", hasSize(2)))
-//                    .andExpect(jsonPath("$[1].orderStatus", is("pending")));
-//        } catch( Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    @Test
-//    public void updateTest() throws Exception{
-//        this.mockMvc.perform(get(baseURI + "/update/1/shipped"))
-//                .andExpect(status().isOk());
-//    }
-=======
     @Test
     public void getOrderByInvalidIDTest() throws Exception{
         Orders orders = new Orders(1,1,1,33.3,23,null,null,null, "shipped");
@@ -178,5 +151,4 @@ public class OrdersControllerTest {
         mockMvc.perform(get(baseURI + "/shipped/avg"))
                 .andExpect(status().isOk());
     }
->>>>>>> Mingqing
 }
