@@ -28,7 +28,8 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     @Transactional
     @Modifying
     @Query(value = "UPDATE Orders SET Orders.Date_Shipped = NOW(), "+
-            "Orders.order_status = \"Shipped\" WHERE Orders.Order_Id = :orderId ;",
+            "Orders.order_status = 'Shipped' WHERE Orders.Order_Id = :orderId " +
+            "AND Orders.Order_Status = 'Pending'",
     nativeQuery = true)
     void shipOrderById(@Param("orderId") int orderId);
 

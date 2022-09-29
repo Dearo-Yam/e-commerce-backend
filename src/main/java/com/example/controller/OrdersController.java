@@ -59,11 +59,19 @@ public class OrdersController {
 
     // Check for authentication?
     @PutMapping("/{id}/ship")
-    public ResponseEntity<Boolean> shipOrderById(@PathVariable("id") int orderId) {
-        if(service.shipOrderById(orderId)) {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(true);
+    public ResponseEntity<String> shipOrderById(@PathVariable("id") int orderId) {
+        // If an Order's status is not Pending, it cannot be shipped.
+        Orders selectedOrder = service.getOrderById(orderId).get();
+        if(!selectedOrder.getOrderStatus().equals("Pending")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order #" +
+                    selectedOrder.getOrderId() + " is not a Pending order.");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
+        if(service.shipOrderById(orderId)) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Order #" +
+                    selectedOrder.getOrderId() + " has been shipped!");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Order #" +
+                selectedOrder.getOrderId() + " has NOT been shipped!");
     }
 
     // Viewing Total Orders Shipped - Edwin
