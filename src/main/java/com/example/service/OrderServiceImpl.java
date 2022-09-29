@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -105,6 +106,32 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+    @Override
+    public Map<String, Object> getOrderDetails(int orderId) {
+        try {
+            Map<String, Object> oList = orderRepo.getOrderDetailsByOrderId(orderId);
+            if(!oList.isEmpty()) {
+                return oList;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getProductsByOrderId(int orderId) {
+        try {
+            List<Map<String, Object>> pList = productRepo.getProductsByOrderId(orderId);
+            if(!pList.isEmpty()) {
+                return pList;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     // Pulled from Edwin's work
     @Override
     public int getTotalOrdersShipped() {
@@ -127,6 +154,20 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		return -1;
+	}
+
+	@Override
+	public List<Object> getTopSellingItems() {
+		try {
+			List<Object> topSelling = productRepo.getTopSellingItems();
+			if(!topSelling.isEmpty()) {
+				return topSelling;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return null;
 	}
     
 }

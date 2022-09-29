@@ -10,74 +10,70 @@ import javax.persistence.Column;
 @Entity
 public class Orders {
     @Id
-    @Column(name = "OrderID")
-    int orderId;
+    @Column(name = "order_id")
+    int order_id;
 
-    @Column(name = "UserID")
-    int userId;
+    @Column(name = "user_id")
+    int user_id;
 
-    @Column(name = "AddressID")
-    int addressId;
+    @Column(name = "address_id")
+    int address_id;
 
-    @Column(name = "Price")
+    @Column(name = "price")
     double price;
 
-    @Column(name = "CreditCardID")
-    int creditCardId;
+    @Column(name = "credit_card_id")
+    int credit_card_id;
 
     // To change to different data type if it doesn't support the Time part?
-    @Column(name = "DateOrdered")
-    Date dateOrdered;
+    @Column(name = "date_ordered")
+    Date date_ordered;
 
-    @Column(name = "DateShipped")
-    Date dateShipped;
+    @Column(name = "date_shipped")
+    Date date_shipped;
 
-    @Column(name = "DateDelivered")
-    Date dateDelivered;
-
-    @Column(name = "OrderStatus")
-    String orderStatus;
+    @Column(name = "order_status")
+    String order_status;
 
     public Orders() {
         super();
     }
 
-    public Orders(int orderId, int userId, int addressId, double price, int creditCardId,
-                  Date dateOrdered, Date dateShipped, Date dateDelivered, String orderStatus) {
+    public Orders(int order_id, int user_id, int address_id, double price, int credit_card_id,
+                  Date date_ordered, Date date_shipped, String order_status) {
         super();
-        this.orderId = orderId;
-        this.userId = userId;
-        this.addressId = addressId;
+        this.order_id = order_id;
+        this.user_id = user_id;
+        this.address_id = address_id;
         this.price = price;
-        this.creditCardId = creditCardId;
-        this.dateOrdered = dateOrdered;
-        this.dateShipped = dateShipped;
-        this.dateDelivered = dateDelivered;
-        this.orderStatus = orderStatus;
+        this.credit_card_id = credit_card_id;
+        this.date_ordered = date_ordered;
+        this.date_shipped = date_shipped;
+        this.order_status = order_status;
     }
 
     public int getOrderId() {
-        return orderId;
+        return order_id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setOrderId(int order_id) {
+        this.order_id = order_id;
     }
 
     public int getUserId() {
-        return userId;
+        return user_id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserId(int user_id) {
+        this.user_id = user_id;
     }
 
     public int getAddressId() {
-        return addressId;
+        return address_id;
     }
 
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
+    public void setAddressId(int address_id) {
+        this.address_id = address_id;
     }
 
     public double getPrice() {
@@ -89,57 +85,48 @@ public class Orders {
     }
 
     public int getCreditCardId() {
-        return creditCardId;
+        return credit_card_id;
     }
 
-    public void setCreditCardId(int creditCardId) {
-        this.creditCardId = creditCardId;
+    public void setCreditCardId(int credit_card_id) {
+        this.credit_card_id = credit_card_id;
     }
 
     public Date getDateOrdered() {
-        return dateOrdered;
+        return date_ordered;
     }
 
-    public void setDateOrdered(Date dateOrdered) {
-        this.dateOrdered = dateOrdered;
+    public void setDateOrdered(Date date_ordered) {
+        this.date_ordered = date_ordered;
     }
 
     public Date getDateShipped() {
-        return dateShipped;
+        return date_shipped;
     }
 
-    public void setDateShipped(Date dateShipped) {
-        this.dateShipped = dateShipped;
-    }
-
-    public Date getDateDelivered() {
-        return dateDelivered;
-    }
-
-    public void setDateDelivered(Date dateDelivered) {
-        this.dateDelivered = dateDelivered;
+    public void setDateShipped(Date date_shipped) {
+        this.date_shipped = date_shipped;
     }
 
     public String getOrderStatus() {
-        return orderStatus;
+        return order_status;
     }
 
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setOrderStatus(String order_status) {
+        this.order_status = order_status;
     }
 
     @Override
     public String toString() {
         return "Orders{" +
-                "orderId=" + orderId +
-                ", userId=" + userId +
-                ", addressId=" + addressId +
+                "order_id=" + order_id +
+                ", user_id=" + user_id +
+                ", address_id=" + address_id +
                 ", price=" + price +
-                ", creditCardId=" + creditCardId +
-                ", dateOrdered=" + dateOrdered +
-                ", dateShipped=" + dateShipped +
-                ", dateDelivered=" + dateDelivered +
-                ", orderStatus='" + orderStatus + '\'' +
+                ", credit_card_id=" + credit_card_id +
+                ", date_ordered=" + date_ordered +
+                ", date_shipped=" + date_shipped +
+                ", order_status='" + order_status + '\'' +
                 '}';
     }
 }

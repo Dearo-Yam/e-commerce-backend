@@ -1,5 +1,6 @@
 package com.example.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,29 +10,51 @@ import javax.persistence.Table;
 public class Products {
 
     @Id
+    @Column(name = "upc")
     String upc;
-    String prodname;
-    String brand;
-    String proddescription;
-    String category;
-    float priceperunit;
-    String imageurl;
-    int availablestock;
-    int reservedstock;
-    int shippedstock;
 
-    public Products(){};
-    public Products(String upc, String prodname, String brand, String proddescription, String category, float priceperunit, String imageurl, int availabelstock, int reservedstock, int shippedstock) {
+    @Column(name = "prod_name")
+    String prod_name;
+
+    @Column(name = "brand")
+    String brand;
+
+    @Column(name = "prod_description")
+    String prod_description;
+
+    @Column(name = "category")
+    String category;
+
+    @Column(name = "price_per_unit")
+    float price_per_unit;
+
+    @Column(name = "image_url")
+    String image_url;
+
+    @Column(name = "available_stock")
+    int available_stock;
+
+    @Column(name = "reserved_stock")
+    int reserved_stock;
+
+    @Column(name = "shipped_stock")
+    int shipped_stock;
+
+    public Products(){super();};
+
+    public Products(String upc, String prod_name, String brand, String prod_description,
+                    String category, float price_per_unit, String image_url, int available_stock,
+                    int reserved_stock, int shipped_stock) {
         this.upc = upc;
-        this.prodname = prodname;
+        this.prod_name = prod_name;
         this.brand = brand;
-        this.proddescription = proddescription;
+        this.prod_description = prod_description;
         this.category = category;
-        this.priceperunit = priceperunit;
-        this.imageurl = imageurl;
-        this.availablestock = availabelstock;
-        this.reservedstock = reservedstock;
-        this.shippedstock = shippedstock;
+        this.price_per_unit = price_per_unit;
+        this.image_url = image_url;
+        this.available_stock = available_stock;
+        this.reserved_stock = reserved_stock;
+        this.shipped_stock = shipped_stock;
     }
 
     public String getUpc() {
@@ -43,11 +66,11 @@ public class Products {
     }
 
     public String getProdname() {
-        return prodname;
+        return prod_name;
     }
 
-    public void setProdname(String prodname) {
-        this.prodname = prodname;
+    public void setProdname(String prod_name) {
+        this.prod_name = prod_name;
     }
 
     public String getBrand() {
@@ -59,11 +82,11 @@ public class Products {
     }
 
     public String getProddescription() {
-        return proddescription;
+        return prod_description;
     }
 
-    public void setProddescription(String proddescription) {
-        this.proddescription = proddescription;
+    public void setProddescription(String prod_description) {
+        this.prod_description = prod_description;
     }
 
     public String getCategory() {
@@ -75,58 +98,58 @@ public class Products {
     }
 
     public float getPriceperunit() {
-        return priceperunit;
+        return price_per_unit;
     }
 
-    public void setPriceperunit(float priceperunit) {
-        this.priceperunit = priceperunit;
+    public void setPriceperunit(float price_per_unit) {
+        this.price_per_unit = price_per_unit;
     }
 
     public String getImageurl() {
-        return imageurl;
+        return image_url;
     }
 
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
+    public void setImageurl(String image_url) {
+        this.image_url = image_url;
     }
 
     public int getAvailablestock() {
-        return availablestock;
+        return available_stock;
     }
 
-    public void setAvailablestock(int availablestock) {
-        this.availablestock = availablestock;
+    public void setAvailablestock(int available_stock) {
+        this.available_stock = available_stock;
     }
 
     public int getReservedstock() {
-        return reservedstock;
+        return reserved_stock;
     }
 
-    public void setReservedstock(int reservedstock) {
-        this.reservedstock = reservedstock;
+    public void setReservedstock(int reserved_stock) {
+        this.reserved_stock = reserved_stock;
     }
 
     public int getShippedstock() {
-        return shippedstock;
+        return shipped_stock;
     }
 
-    public void setShippedstock(int shippedstock) {
-        this.shippedstock = shippedstock;
+    public void setShippedstock(int shipped_stock) {
+        this.shipped_stock = shipped_stock;
     }
 
     @Override
     public String toString() {
         return "Product{" +
                 "upc='" + upc + '\'' +
-                ", prodname='" + prodname + '\'' +
+                ", prod_name='" + prod_name + '\'' +
                 ", brand='" + brand + '\'' +
-                ", proddescription='" + proddescription + '\'' +
+                ", prod_description='" + prod_description + '\'' +
                 ", category='" + category + '\'' +
-                ", priceperunit=" + priceperunit +
-                ", imageurl='" + imageurl + '\'' +
-                ", availabelstock=" + availablestock +
-                ", reservedstock=" + reservedstock +
-                ", shippedstock=" + shippedstock +
+                ", price_per_unit=" + price_per_unit +
+                ", image_url='" + image_url + '\'' +
+                ", available_stock=" + available_stock +
+                ", reserved_stock=" + reserved_stock +
+                ", shipped_stock=" + shipped_stock +
                 '}';
     }
 }

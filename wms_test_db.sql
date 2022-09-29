@@ -28,10 +28,10 @@ DROP TABLE IF EXISTS Users;
 -- -----------------------------------------------------
 CREATE TABLE users
 (
-    user_id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL AUTO_INCREMENT, 
     email VARCHAR(50) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL, 
     user_password VARCHAR(50) NOT NULL,
     phone CHAR(10) NOT NULL,
     PRIMARY KEY (user_id)
@@ -141,31 +141,31 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- Users insert statements
-INSERT INTO users (email, first_name, last_name, user_password, phone)
+INSERT INTO users (email, first_name, last_name, user_password, phone) 
 	VALUES ("bobby.joe@gmail.com", "Bobby", "Joe", "password123", "9876543210");
-INSERT INTO users  (email, first_name, last_name, user_password, phone)
+INSERT INTO users  (email, first_name, last_name, user_password, phone) 
 	VALUES ("awilliams@yahoo.com", "Andrew", "Williams", "mypassword", "8376519501");
-INSERT INTO users  (email, first_name, last_name, user_password, phone)
+INSERT INTO users  (email, first_name, last_name, user_password, phone) 
 	VALUES ("n.johnson@gmail.com", "Nancy", "Johnson", "thisisabadpassword", "6504891123");
-INSERT INTO users  (email, first_name, last_name, user_password, phone)
+INSERT INTO users  (email, first_name, last_name, user_password, phone) 
 	VALUES ("jj1205@msn.com", "Jenny", "Jones", "iforgot", "6264589104");
-INSERT INTO users  (email, first_name, last_name, user_password, phone)
+INSERT INTO users  (email, first_name, last_name, user_password, phone) 
 	VALUES ("g.s.l.62@gmail.com", "George", "Lee", "whatismypassword", "3108573221");
 
 -- Credit_cards insert statements
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(1, 'Bobby Joe', '4443123467891234', '2022', '09' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(3, 'Nancy Johnson', '3734567891011121', '2024', '01' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(2, 'Andrew Williams','4264483469273672', '2026', '09' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(5, 'George Lee','4231902528753161', '2025', '11' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(4, 'Jenny Jones', '3484127952481970', '2028', '10' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(3, 'Nancy Johnson', '6091862988814035', '2027', '07' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month)
+INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
 	VALUES(1, 'Bobby Joe', '4100360765536477', '2023', '02' );
 
 -- Addresses insert statements
@@ -215,7 +215,7 @@ INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, da
 
 -- Order_items insert statements
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(6, 72, '100000001111');
+	VALUES(6, 72, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
 	VALUES(8, 59, '100001111111');
 INSERT INTO order_items (order_id, quantity, upc)
@@ -231,63 +231,63 @@ INSERT INTO order_items (order_id, quantity, upc)
 INSERT INTO order_items (order_id, quantity, upc)
 	VALUES(3, 1, '100001111111');
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(7, 95, '100000000111');
+	VALUES(7, 95, '100000000111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(6, 57, '100000011111');
+	VALUES(6, 57, '100000011111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(2, 36, '100001111111');
+	VALUES(2, 36, '100001111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(1, 64, '100000000001');
+	VALUES(1, 64, '100000000001'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(7, 10, '100000000111');
+	VALUES(7, 10, '100000000111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(9, 86, '100000000011');
+	VALUES(9, 86, '100000000011'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(5, 50, '100000111111');
+	VALUES(5, 50, '100000111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(7, 59, '100000111111');
+	VALUES(7, 59, '100000111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(8, 62, '100011111111');
+	VALUES(8, 62, '100011111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(1, 14, '100011111111');
+	VALUES(1, 14, '100011111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(6, 43, '100000001111');
+	VALUES(6, 43, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(3, 13, '100011111111');
+	VALUES(3, 13, '100011111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(3, 32, '100000000111');
+	VALUES(3, 32, '100000000111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(8, 5, '100000001111');
+	VALUES(8, 5, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(8, 70, '600000000002');
+	VALUES(8, 70, '600000000002'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(2, 43, '100000001111');
+	VALUES(2, 43, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(6, 42, '100000001111');
+	VALUES(6, 42, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(6, 88, '100000001111');
+	VALUES(6, 88, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(5, 41, '100011111111');
+	VALUES(5, 41, '100011111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(2, 5, '100011111111');
+	VALUES(2, 5, '100011111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(3, 5, '100000111111');
+	VALUES(3, 5, '100000111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(5, 53, '100000011111');
+	VALUES(5, 53, '100000011111'); 
 INSERT INTO order_items (order_id, quantity, upc)
 	VALUES(6, 61, '100001111111');
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(5, 16, '100000001111');
+	VALUES(5, 16, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(5, 40, '100001111111');
+	VALUES(5, 40, '100001111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(4, 34, '100011111111');
+	VALUES(4, 34, '100011111111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(2, 13, '100000000111');
+	VALUES(2, 13, '100000000111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(4, 28, '100000001111');
+	VALUES(4, 28, '100000001111'); 
 INSERT INTO order_items (order_id, quantity, upc)
-	VALUES(8, 16, '100000000001');
+	VALUES(8, 16, '100000000001'); 
 INSERT INTO order_items (order_id, quantity, upc)
 	VALUES(10, 13, '100000000111');
 INSERT INTO order_items (order_id, quantity, upc)
