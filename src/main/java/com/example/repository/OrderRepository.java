@@ -72,9 +72,9 @@ public interface OrderRepository extends JpaRepository<Orders, Integer> {
     		+ "       SUM(DAYOFWEEK(orders.date_shipped)=6),"
     		+ "       SUM(DAYOFWEEK(orders.date_shipped)=7)"
     		+ "       from orders"
-    		+ "       where order_status = 'Shipped' and orders.date_shipped >= ((now() - interval dayofweek(now()) DAY) + interval 1 DAY) - interval :week WEEK"
-    		+ "       and orders.date_shipped < ((now() - interval dayofweek(now()) DAY) + interval 1 DAY) - interval :week - 1 WEEK"
-    		+ "       order by DayOfWeek(orders.date_shipped) asc", nativeQuery = true)
+    		+ "       where order_status = 'Shipped' and orders.date_shipped >= ((date_format(now(), \"%Y-%m-%d 00:00:00\") - interval dayofweek(date_format(now(), \"%Y-%m-%d 00:00:00\")) DAY) + interval 1 DAY) - interval :week WEEK"
+    		+ "       and orders.date_shipped < (date_format(now(), \"%Y-%m-%d 23:59:59\") - interval dayofweek(date_format(now(), \"%Y-%m-%d 00:00:00\")) DAY) - interval :week - 1 WEEK"
+    		+ "       order by DayOfWeek(orders.date_shipped) asc;", nativeQuery = true)
     List<Object> getWeeklyShipping(@Param("week") int week);
 
     @Query(value = "SELECT Orders.Order_ID AS 'order_id', Orders.order_status AS 'status', " +
