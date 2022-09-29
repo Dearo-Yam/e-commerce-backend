@@ -82,29 +82,29 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    @Override
-    public ResponseEntity<Orders> update(int id, String status) {
-        try{
-            orderRepo.updateStatus(status, id);
-            Optional<Orders> order = orderRepo.findById(id);
-;            return new ResponseEntity<>(order.get(), HttpStatus.ACCEPTED);
-        }catch(Exception exc){
-            System.out.println(exc);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+//    @Override
+//    public ResponseEntity<Orders> update(int id, String status) {
+//        try{
+//            orderRepo.updateStatus(status, id);
+//            Optional<Orders> order = orderRepo.findById(id);
+//;            return new ResponseEntity<>(order.get(), HttpStatus.ACCEPTED);
+//        }catch(Exception exc){
+//            System.out.println(exc);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
 
-    @Override
-    public List<Products> getItems(int orderId) {
-        try {
-            List<Products> iList = productRepo.findItems(orderId);
-            if (!iList.isEmpty())
-                return iList;
-        } catch (Exception exc) {
-            System.out.println(exc);
-        }
-        return null;
-    }
+//    @Override
+//    public List<Products> getItems(int orderId) {
+//        try {
+//            List<Products> iList = productRepo.findItems(orderId);
+//            if (!iList.isEmpty())
+//                return iList;
+//        } catch (Exception exc) {
+//            System.out.println(exc);
+//        }
+//        return null;
+//    }
 
     @Override
     public Map<String, Object> getOrderDetails(int orderId) {

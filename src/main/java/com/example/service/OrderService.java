@@ -12,24 +12,18 @@ import java.util.Optional;
 @Service
 public interface OrderService {
     List<Orders> getAllOrders();
-    Optional<Orders> getOrderById(int orderId);
-
-    boolean shipOrderById(int orderId);
-
-    int getTotalOrdersShipped();
-
     List<Orders> getPendingOrders();
     List<Orders> getShippedOrders();
-    ResponseEntity<Orders>update(int id, String status);
-    List<Products> getItems(int orderId);
+
+    Optional<Orders> getOrderById(int orderId);
 
     Map<String, Object> getOrderDetails(int orderId);
     List<Map<String, Object>> getProductsByOrderId(int orderId);
-    
-    double getAvgTimeToShip();
-    
-    List<Object> getTopSellingItems();
-//    ResponseEntity<String> update(int id, String status);
 
-//    List<Orders> getItems(int orderId);
+    boolean shipOrderById(int orderId);
+//    ResponseEntity<Orders>update(int id, String status);
+//    List<Products> getItems(int orderId);
+    int getTotalOrdersShipped();
+    double getAvgTimeToShip();
+    List<Object> getTopSellingItems();
 }
