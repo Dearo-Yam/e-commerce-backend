@@ -1,0 +1,2 @@
+CREATED updated
+Orders{order_id=10, user_id=5, address_id=5, price=14.0, credit_card_id=5, date_ordered=2018-12-18, date_shipped=2022-09-30 16:15:32, order_status='Shipped', order list: [OrerItems{order_item_id=3, order_id=10, quantity=8, upc='100000111111'}, OrerItems{order_item_id=38, order_id=10, quantity=13, upc='100000000111'}, OrerItems{order_item_id=39, order_id=10, quantity=86, upc='100000001111'}]'}

@@ -21,7 +21,7 @@ public interface OrderService {
     List<Map<String, Object>> getProductsByOrderId(int orderId);
 
     boolean shipOrderById(int orderId);
-//    ResponseEntity<Orders>update(int id, String status);
+    ResponseEntity<Orders>update(int id, String status);
 //    List<Products> getItems(int orderId);
     int getTotalOrdersShipped();
     double getAvgTimeToShip();

@@ -2,6 +2,9 @@ package com.example.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
 @Table(name = "order_items")
 public class OrderItems {
@@ -9,8 +12,6 @@ public class OrderItems {
     @Column(name = "order_item_id")
     int order_item_id;
 
-    @Column(name = "order_id")
-    int order_id;
 
     @Column(name = "quantity")
     int quantity;
@@ -18,15 +19,26 @@ public class OrderItems {
     @Column(name = "upc")
     String upc;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name="order_id")
+    Orders order;
+    
+    public Orders getOrder() {
+        return order;
+    }
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
     public OrderItems(){
         super();
     };
-    public OrderItems(int order_item_id, int order_id, int quantity, String upc) {
+    public OrderItems(int order_item_id, int quantity, String upc) {
         this.order_item_id = order_item_id;
-        this.order_id = order_id;
         this.quantity = quantity;
         this.upc = upc;
     }
+    
 
     public int getOrderitemid() {
         return order_item_id;
@@ -36,14 +48,8 @@ public class OrderItems {
         this.order_item_id = order_item_id;
     }
 
-    public int getOrderid() {
-        return order_id;
-    }
-
-    public void setOrderid(int order_id) {
-        this.order_id = order_id;
-    }
-
+    
+    
     public int getQuantity() {
         return quantity;
     }
@@ -62,9 +68,9 @@ public class OrderItems {
 
     @Override
     public String toString() {
-        return "OrerItems{" +
+        return "OrderItems{" +
                 "order_item_id=" + order_item_id +
-                ", order_id=" + order_id +
+                ", order_id=" + this.order.order_id +
                 ", quantity=" + quantity +
                 ", upc='" + upc + '\'' +
                 '}';

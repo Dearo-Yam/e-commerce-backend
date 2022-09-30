@@ -1,9 +1,14 @@
 package com.example.model;
 
 import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Table
@@ -30,17 +35,31 @@ public class Orders {
     Date date_ordered;
 
     @Column(name = "date_shipped")
-    Date date_shipped;
+    String date_shipped;
 
     @Column(name = "order_status")
     String order_status;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List <OrderItems> orderItems;
+    
+    
+    public List<OrderItems> getOrderItems() {
+        return orderItems;
+    }
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
+        for(OrderItems i: this.orderItems) {
+            i.setOrder(this);
+        }
+    }
+    
     public Orders() {
         super();
     }
 
     public Orders(int order_id, int user_id, int address_id, double price, int credit_card_id,
-                  Date date_ordered, Date date_shipped, String order_status) {
+                  Date date_ordered, String date_shipped, String order_status) {
         super();
         this.order_id = order_id;
         this.user_id = user_id;
@@ -100,11 +119,11 @@ public class Orders {
         this.date_ordered = date_ordered;
     }
 
-    public Date getDateShipped() {
+    public String getDateShipped() {
         return date_shipped;
     }
 
-    public void setDateShipped(Date date_shipped) {
+    public void setDateShipped(String date_shipped) {
         this.date_shipped = date_shipped;
     }
 
@@ -127,6 +146,7 @@ public class Orders {
                 ", date_ordered=" + date_ordered +
                 ", date_shipped=" + date_shipped +
                 ", order_status='" + order_status + '\'' +
+                ", order list: " + orderItems + '\'' +
                 '}';
     }
 }
