@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
     public boolean shipOrderById(int orderId) {
         orderRepo.shipOrderById(orderId);
         orderRepo.updateStockById(orderId);
-        return orderRepo.findById(orderId).get().getOrderStatus().equals("Delivered");
+        return orderRepo.findById(orderId).get().getOrderStatus().equals("Shipped");
     }
 
     // Pulled from Chuang's work
@@ -81,26 +82,52 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
+//    @Override
+//    public ResponseEntity<Orders> update(int id, String status) {
+//        try{
+//            orderRepo.updateStatus(status, id);
+//            Optional<Orders> order = orderRepo.findById(id);
+//;            return new ResponseEntity<>(order.get(), HttpStatus.ACCEPTED);
+//        }catch(Exception exc){
+//            System.out.println(exc);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+
+//    @Override
+//    public List<Products> getItems(int orderId) {
+//        try {
+//            List<Products> iList = productRepo.findItems(orderId);
+//            if (!iList.isEmpty())
+//                return iList;
+//        } catch (Exception exc) {
+//            System.out.println(exc);
+//        }
+//        return null;
+//    }
+
     @Override
-    public ResponseEntity<Orders> update(int id, String status) {
-        try{
-            orderRepo.updateStatus(status, id);
-            Optional<Orders> order = orderRepo.findById(id);
-;            return new ResponseEntity<>(order.get(), HttpStatus.ACCEPTED);
-        }catch(Exception exc){
-            System.out.println(exc);
+    public Map<String, Object> getOrderDetails(int orderId) {
+        try {
+            Map<String, Object> oList = orderRepo.getOrderDetailsByOrderId(orderId);
+            if(!oList.isEmpty()) {
+                return oList;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return null;
     }
 
     @Override
-    public List<Products> getItems(int orderId) {
+    public List<Map<String, Object>> getProductsByOrderId(int orderId) {
         try {
-            List<Products> iList = productRepo.findItems(orderId);
-            if (!iList.isEmpty())
-                return iList;
-        } catch (Exception exc) {
-            System.out.println(exc);
+            List<Map<String, Object>> pList = productRepo.getProductsByOrderId(orderId);
+            if(!pList.isEmpty()) {
+                return pList;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
         return null;
     }
@@ -127,6 +154,34 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		return -1;
+	}
+
+	@Override
+	public List<Object> getTopSellingItems() {
+		try {
+			List<Object> topSelling = productRepo.getTopSellingItems();
+			if(!topSelling.isEmpty()) {
+				return topSelling;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<Object> getWeeklyShipping(int week) {
+		try {
+			List<Object> weeklyShipping = orderRepo.getWeeklyShipping(week);
+			if(!weeklyShipping.isEmpty()) {
+				return weeklyShipping;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return null;
 	}
     
 }

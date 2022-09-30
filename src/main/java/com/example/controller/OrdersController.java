@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -58,11 +59,19 @@ public class OrdersController {
 
     // Check for authentication?
     @PutMapping("/{id}/ship")
-    public ResponseEntity<Boolean> shipOrderById(@PathVariable("id") int orderId) {
-        if(service.shipOrderById(orderId)) {
-            return ResponseEntity.status(HttpStatus.OK).body(true);
+    public ResponseEntity<String> shipOrderById(@PathVariable("id") int orderId) {
+        // If an Order's status is not Pending, it cannot be shipped.
+        Orders selectedOrder = service.getOrderById(orderId).get();
+        if(!selectedOrder.getOrderStatus().equals("Pending")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order #" +
+                    selectedOrder.getOrderId() + " is not a Pending order.");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(true);
+        if(service.shipOrderById(orderId)) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Order #" +
+                    selectedOrder.getOrderId() + " has been shipped!");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Order #" +
+                selectedOrder.getOrderId() + " has NOT been shipped!");
     }
 
     // Viewing Total Orders Shipped - Edwin
@@ -88,22 +97,58 @@ public class OrdersController {
         }
         return new ResponseEntity<>(avgTime, HttpStatus.OK);
     }
+    
+    @GetMapping("/top-selling")
+    @ResponseBody
+    public ResponseEntity<List<Object>> getTopSellingOrders() {
+    	List<Object> topSelling = service.getTopSellingItems();
+    	if(!topSelling.isEmpty()) {
+    		return new ResponseEntity<>(topSelling, HttpStatus.OK);
+    	}
+    	
+    	return new ResponseEntity<>(topSelling, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     // Pulled from Chuang
     // Maybe check String status to be either Shipped, Pending, or Canceled?
-    @PutMapping("/update/{id}/{status}")
+//    @PutMapping("/update/{id}/{status}")
+//    @ResponseBody
+//    public ResponseEntity<Orders> update(@PathVariable("id") int id, @PathVariable("status") String status)
+//    {
+//        //Check if there is information pass in from the post request
+//        //if yes, call update service to update the information
+//        try{
+//            if(status != null && id > 0)
+//                return service.update(id, status);
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
+//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
+
+    // Returns the details of both the Order selected by ID,
+    // and the Customer that made the purchase order.
+    @GetMapping("/{id}/details")
     @ResponseBody
-    public ResponseEntity<Orders> update(@PathVariable("id") int id, @PathVariable("status") String status)
-    {
-        //Check if there is information pass in from the post request
-        //if yes, call update service to update the information
-        try{
-            if(status != null && id > 0)
-                return service.update(id, status);
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public Map<String, Object> getOrderDetails(@PathVariable("id") int id) {
+        System.out.println("Getting details of Order #" + id);
+        return service.getOrderDetails(id);
+    }
+    
+    @GetMapping("/weekly/{week}")
+    @ResponseBody
+    public ResponseEntity<List<Object>> getWeeklyShipping(@PathVariable("week") int week) {
+    	List<Object> weeklyShipping = service.getWeeklyShipping(week);
+    	if(!weeklyShipping.isEmpty()) {
+    		return new ResponseEntity<>(weeklyShipping, HttpStatus.OK);
+    	}
+    	
+    	return new ResponseEntity<>(weeklyShipping, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @GetMapping("/{id}/products")
+    @ResponseBody
+    public List<Map<String, Object>> getProductsByOrderId(@PathVariable("id") int id) {
+        return service.getProductsByOrderId(id);
+    }
 }
