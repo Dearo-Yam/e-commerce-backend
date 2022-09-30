@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS Users;
 CREATE TABLE users
 (
     user_id INT NOT NULL AUTO_INCREMENT, 
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL, 
     user_password VARCHAR(50) NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE addresses
     city VARCHAR(30) NOT NULL,
     state CHAR(2) NOT NULL,
     zip CHAR(5) NOT NULL,
-    is_shipping BOOL NOT NULL,
-    is_billing BOOL NOT NULL,
+    is_shipping INT NOT NULL,
+    is_billing INT NOT NULL,
     PRIMARY KEY (address_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
@@ -61,11 +61,11 @@ CREATE TABLE addresses
 -- -----------------------------------------------------
 CREATE TABLE products
 (
-    upc CHAR(12) NOT NULL,
+    upc VARCHAR(12) NOT NULL,
     prod_name VARCHAR(64) NOT NULL,
     brand VARCHAR(50) NOT NULL,
-    prod_description VARCHAR(2048) NOT NULL,
     category VARCHAR(50) NOT NULL,
+    prod_description TEXT NOT NULL,
     price_per_unit FLOAT NOT NULL,
     image_url VARCHAR(2048),
     available_stock INT NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE credit_cards
     credit_card_id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     cardholder_name VARCHAR(40) NOT NULL,
-    card_number CHAR(16) NOT NULL,
+    last_four_card_number CHAR(16) NOT NULL,
     expiration_year CHAR(4) NOT NULL,
     expiration_month CHAR(2) NOT NULL,
     PRIMARY KEY (credit_card_id),
@@ -153,19 +153,19 @@ INSERT INTO users  (email, first_name, last_name, user_password, phone)
 	VALUES ("g.s.l.62@gmail.com", "George", "Lee", "whatismypassword", "3108573221");
 
 -- Credit_cards insert statements
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(1, 'Bobby Joe', '4443123467891234', '2022', '09' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(3, 'Nancy Johnson', '3734567891011121', '2024', '01' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(2, 'Andrew Williams','4264483469273672', '2026', '09' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(5, 'George Lee','4231902528753161', '2025', '11' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(4, 'Jenny Jones', '3484127952481970', '2028', '10' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(3, 'Nancy Johnson', '6091862988814035', '2027', '07' );
-INSERT INTO credit_cards (user_id, cardholder_name, card_number, expiration_year, expiration_month) 
+INSERT INTO credit_cards (user_id, cardholder_name, last_four_card_number, expiration_year, expiration_month) 
 	VALUES(1, 'Bobby Joe', '4100360765536477', '2023', '02' );
 
 -- Addresses insert statements
@@ -334,3 +334,21 @@ INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, da
 	VALUES (5, 5, 14.00, 5, "2018-12-18 13:17:17", NULL, "Pending");
 INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
 	VALUES (5, 5, 14.00, 5, "2018-12-18 13:17:17", NULL, "Pending");
+    
+-- Sample inserts for Weekly metric
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 7 DAY, Now() - interval 5 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 8 DAY, Now() - interval 6 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 3 DAY, Now() - interval 2 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 7 DAY, Now() - interval 6 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 6 DAY, Now() - interval 4 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 7 DAY, Now() - interval 5 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 6 DAY, Now() - interval 5 DAY, "Shipped");
+-- INSERT INTO orders (user_id, address_id, price, credit_card_id, date_ordered, date_shipped, order_status)
+--     VALUES (5, 5, 14.00, 5, Now() - interval 1 DAY, Now(), "Shipped");
