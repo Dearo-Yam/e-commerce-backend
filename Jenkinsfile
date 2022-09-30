@@ -4,11 +4,6 @@ pipeline {
     agent {label 'built-in'}
 
     stages {
-        stage('Checkout') {
-            steps {
-                sh "docker image prune -f"
-            }
-        }
         stage('Maven Build') {
             agent { docker { image 'maven:3.8.1-adoptopenjdk-11' } }
             stages {
