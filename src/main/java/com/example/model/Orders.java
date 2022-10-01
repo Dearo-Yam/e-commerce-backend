@@ -1,10 +1,7 @@
 package com.example.model;
 
-import java.sql.Date;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
+import java.util.List;
+import javax.persistence.*;
 
 @Table
 @Entity
@@ -25,22 +22,22 @@ public class Orders {
     @Column(name = "credit_card_id")
     int credit_card_id;
 
-    // To change to different data type if it doesn't support the Time part?
     @Column(name = "date_ordered")
-    Date date_ordered;
+    String date_ordered;
 
     @Column(name = "date_shipped")
-    Date date_shipped;
+    String date_shipped;
 
     @Column(name = "order_status")
     String order_status;
 
-    public Orders() {
-        super();
-    }
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<OrderItems> orderItems;
+
+    public Orders(){}
 
     public Orders(int order_id, int user_id, int address_id, double price, int credit_card_id,
-                  Date date_ordered, Date date_shipped, String order_status) {
+                  String date_ordered, String date_shipped, String order_status) {
         super();
         this.order_id = order_id;
         this.user_id = user_id;
@@ -50,6 +47,17 @@ public class Orders {
         this.date_ordered = date_ordered;
         this.date_shipped = date_shipped;
         this.order_status = order_status;
+    }
+
+    // Pulled from OMS to match their Order model
+    public List<OrderItems> getOrderItems() {
+        return orderItems;
+    }
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems;
+        for(OrderItems i: this.orderItems) {
+            i.setOrder(this);
+        }
     }
 
     public int getOrderId() {
@@ -92,19 +100,19 @@ public class Orders {
         this.credit_card_id = credit_card_id;
     }
 
-    public Date getDateOrdered() {
+    public String getDateOrdered() {
         return date_ordered;
     }
 
-    public void setDateOrdered(Date date_ordered) {
+    public void setDateOrdered(String date_ordered) {
         this.date_ordered = date_ordered;
     }
 
-    public Date getDateShipped() {
+    public String getDateShipped() {
         return date_shipped;
     }
 
-    public void setDateShipped(Date date_shipped) {
+    public void setDateShipped(String date_shipped) {
         this.date_shipped = date_shipped;
     }
 
@@ -124,9 +132,10 @@ public class Orders {
                 ", address_id=" + address_id +
                 ", price=" + price +
                 ", credit_card_id=" + credit_card_id +
-                ", date_ordered=" + date_ordered +
-                ", date_shipped=" + date_shipped +
+                ", date_ordered='" + date_ordered + '\'' +
+                ", date_shipped='" + date_shipped + '\'' +
                 ", order_status='" + order_status + '\'' +
+                ", orderItems=" + orderItems +
                 '}';
     }
 }
