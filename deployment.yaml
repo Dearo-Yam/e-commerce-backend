@@ -15,24 +15,5 @@ spec:
       containers:
         - name: wms_backend
           image: sure777/wms_backend
-          imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env:
-            - name: PORT
-              value: "8080"
-      imagePullSecrets:
-        - name: registry-creds
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: wms_backend
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 8080
-      targetPort: 8080
-  selector:
-    app: wms_backend
