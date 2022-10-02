@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wms_backend
+  name: warehouse-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wms_backend
+      app: warehouse-backend
   template:
     metadata:
       labels:
-        app: wms_backend
+        app: warehouse-backend
     spec:
       containers:
-        - name: wms_backend
-          image: sure777/wms_backend
+        - name: warehouse-backend
+          image: sure777/warehouse-backend
           ports:
             - containerPort: 8080
