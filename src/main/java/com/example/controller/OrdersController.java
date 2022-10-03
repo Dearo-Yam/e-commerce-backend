@@ -5,8 +5,12 @@ import com.example.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +21,9 @@ import java.util.Optional;
 public class OrdersController {
     @Autowired
     OrderService service;
+
+    @Autowired
+    KafkaTemplate<String, Orders> kafkaTemplate;
 
     @GetMapping("/hello")
     @ResponseBody
@@ -60,18 +67,47 @@ public class OrdersController {
     // Check for authentication?
     @PutMapping("/{id}/ship")
     public ResponseEntity<String> shipOrderById(@PathVariable("id") int orderId) {
-        // If an Order's status is not Pending, it cannot be shipped.
-        Orders selectedOrder = service.getOrderById(orderId).get();
-        if(!selectedOrder.getOrderStatus().equals("Pending")) {
+        Optional<Orders> exists = service.getOrderById(orderId);
+
+        // Checks to see if there is an Order associated with the given Order ID.
+        if(exists.isPresent()) {
+            Orders selectedOrder = exists.get();
+            // Checks to see if the Order status is Pending, a requirement for an Order to ship.
+            if(selectedOrder.getOrderStatus().equals("Pending")) {
+                // Sets Order object's dateShipped to now.
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
+                selectedOrder.setDateShipped(dtf.format(now));
+
+                // Sets Order object's status to Shipped.
+                selectedOrder.setOrderStatus("Shipped");
+
+                // Sends Orders object to be shipped through Kafka to wms-order-shipped topic.
+                kafkaTemplate.send("wms-order-shipped", selectedOrder);
+
+                return ResponseEntity.status(HttpStatus.ACCEPTED).body("Order #" +
+                        orderId + " has been shipped!");
+            }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order #" +
                     selectedOrder.getOrderId() + " is not a Pending order.");
         }
-        if(service.shipOrderById(orderId)) {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Order #" +
-                    selectedOrder.getOrderId() + " has been shipped!");
-        }
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Order #" +
-                selectedOrder.getOrderId() + " has NOT been shipped!");
+                orderId + " has NOT been shipped!");
+
+        // If an Order's status is not Pending, it cannot be shipped.
+//        Orders selectedOrder = service.getOrderById(orderId).get();
+//        if(!selectedOrder.getOrderStatus().equals("Pending")) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Order #" +
+//                    selectedOrder.getOrderId() + " is not a Pending order.");
+//        }
+//        if(service.shipOrderById(orderId)) {
+//            kafkaTemplate.send("")
+//            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Order #" +
+//                    selectedOrder.getOrderId() + " has been shipped!");
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR: Order #" +
+//                selectedOrder.getOrderId() + " has NOT been shipped!");
     }
 
     // Viewing Total Orders Shipped - Edwin
